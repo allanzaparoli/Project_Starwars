@@ -4,7 +4,6 @@ import StarWarsContext from '../context/StarWarsContext';
 
 export default function Table() {
   const { data } = useContext(StarWarsContext);
-  console.log(useContext(StarWarsContext));
 
   return (
     <div>
@@ -14,7 +13,7 @@ export default function Table() {
             <th>Name</th>
             <th>Rotation Period</th>
             <th>Orbital Period</th>
-            <th>Diament</th>
+            <th>Diamenter</th>
             <th>Climate</th>
             <th>Gravity</th>
             <th>Terrain</th>
