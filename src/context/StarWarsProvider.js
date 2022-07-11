@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import StarWarsContext from './StarWarsContext';
-// import FilterNumber from '../components/FilterNumber';
 
 export default function StarWarsProvider({ children }) {
-  // const { setFilterColumn, setFilterNumeric, setFilterOperator } = FilterNumber;
   const [data, setData] = useState([]);
   const [allData, setAllData] = useState([]);
-  const [filterTitle, setFilterTitle] = useState('');
+  const [filterByName, setFilterByName] = useState('');
   const [filterNumber, setFilterNumber] = useState([]);
   const [filterColumn, setFilterColumn] = useState('population');
   const [filterOperator, setFilterOperator] = useState('maior que');
@@ -22,13 +20,15 @@ export default function StarWarsProvider({ children }) {
     };
     fetchApi();
   }, []);
+
   useEffect(() => {
     const dataAll = allData.filter(
       (element) => element.name.toLowerCase().includes(filterTitle),
     );
     setData(dataAll);
-  }, [filterTitle]);
-  const handleTitleFilter = ({ target }) => setFilterTitle(target.value.toLowerCase());
+  }, [filterByName]);
+
+  const handleTitleFilter = ({ target }) => setFilterByName(target.value.toLowerCase());
 
   const handleFilterNumber = () => {
     console.log(filterColumn);
