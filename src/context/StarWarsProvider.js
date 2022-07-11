@@ -6,7 +6,7 @@ export default function StarWarsProvider({ children }) {
   const [data, setData] = useState([]);
   const [allData, setAllData] = useState([]);
   const [filterByName, setFilterByName] = useState('');
-  const [filterNumber, setFilterNumber] = useState([]);
+  const [filterByNumericValues, setFilterByNumericValues] = useState([]);
   const [filterColumn, setFilterColumn] = useState('population');
   const [filterOperator, setFilterOperator] = useState('maior que');
   const [filterNumeric, setFilterNumeric] = useState('0');
@@ -23,7 +23,7 @@ export default function StarWarsProvider({ children }) {
 
   useEffect(() => {
     const dataAll = allData.filter(
-      (element) => element.name.toLowerCase().includes(filterTitle),
+      (element) => element.name.toLowerCase().includes(filterByName),
     );
     setData(dataAll);
   }, [filterByName]);
@@ -31,9 +31,12 @@ export default function StarWarsProvider({ children }) {
   const handleTitleFilter = ({ target }) => setFilterByName(target.value.toLowerCase());
 
   const handleFilterNumber = () => {
-    console.log(filterColumn);
-    console.log(filterOperator);
-    console.log(filterNumeric);
+    const newFilterByNumericValues = {
+      column: filterColumn,
+      comparison: filterOperator,
+      value: filterNumeric,
+    };
+    setFilterByNumericValues(...filterByNumericValues, newFilterByNumericValues);
   };
 
   const contextValue = {
@@ -47,8 +50,8 @@ export default function StarWarsProvider({ children }) {
     setFilterOperator,
     filterNumeric,
     setFilterNumeric,
-    filterNumber,
-    setFilterNumber,
+    filterByNumericValues,
+    setFilterByNumericValues,
   };
 
   return (
