@@ -7,7 +7,6 @@ export default function FilterNumber() {
     setFilterColumn, setFilterNumeric, filterNumeric,
   } = useContext(StarWarsContext);
 
-  console.log(handleFilterNumber.filterColumn);
   return (
     <div>
       <form>

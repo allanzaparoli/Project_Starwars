@@ -38,25 +38,21 @@ export default function StarWarsProvider({ children }) {
     };
     setFilterByNumericValues(newFilterByNumericValues);
     setData(allData.filter((element) => element[filterColumn] > 1));
-    console.log(Number(filterNumeric));
+
     switch (filterOperator) {
     case 'maior que':
-      return setData(allData
+      return setData(data
         .filter((element) => +element[filterColumn] > Number(filterNumeric)));
     case 'menor que':
-      return setData(allData
+      return setData(data
         .filter((element) => +element[filterColumn] < Number(filterNumeric)));
     case 'igual a':
-      return setData(allData
+      return setData(data
         .filter((element) => +element[filterColumn] === Number(filterNumeric)));
     default:
       return setData(allData);
     }
   };
-
-  useEffect(() => {
-    console.log(data);
-  });
 
   const contextValue = {
     data,
