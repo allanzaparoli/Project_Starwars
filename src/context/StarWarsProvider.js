@@ -10,6 +10,8 @@ export default function StarWarsProvider({ children }) {
   const [filterColumn, setFilterColumn] = useState('population');
   const [filterOperator, setFilterOperator] = useState('maior que');
   const [filterNumeric, setFilterNumeric] = useState('0');
+  const [optionColumn, setOptionColumn] = useState([
+    'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water']);
   useEffect(() => {
     const fetchApi = async () => {
       const api = 'https://swapi-trybe.herokuapp.com/api/planets/';
@@ -36,8 +38,13 @@ export default function StarWarsProvider({ children }) {
       comparison: filterOperator,
       value: filterNumeric,
     };
+    const removeColumns = optionColumn.filter((element) => element !== filterColumn);
+    setOptionColumn(removeColumns);
     setFilterByNumericValues(newFilterByNumericValues);
     setData(allData.filter((element) => element[filterColumn] > 1));
+
+    const justOneColumn = filterColumn;
+    console.log(justOneColumn);
 
     switch (filterOperator) {
     case 'maior que':
@@ -67,6 +74,8 @@ export default function StarWarsProvider({ children }) {
     setFilterNumeric,
     filterByNumericValues,
     setFilterByNumericValues,
+    optionColumn,
+    setOptionColumn,
   };
 
   return (
