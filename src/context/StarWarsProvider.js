@@ -9,9 +9,10 @@ export default function StarWarsProvider({ children }) {
   const [filterByNumericValues, setFilterByNumericValues] = useState([]);
   const [filterColumn, setFilterColumn] = useState('population');
   const [filterOperator, setFilterOperator] = useState('maior que');
-  const [filterNumeric, setFilterNumeric] = useState('0');
+  const [filterNumeric, setFilterNumeric] = useState(0);
   const [optionColumn, setOptionColumn] = useState([
     'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water']);
+
   useEffect(() => {
     const fetchApi = async () => {
       const api = 'https://swapi-trybe.herokuapp.com/api/planets/';
@@ -36,28 +37,23 @@ export default function StarWarsProvider({ children }) {
     const newFilterByNumericValues = {
       column: filterColumn,
       comparison: filterOperator,
-      value: filterNumeric,
+      value: +filterNumeric,
     };
     const removeColumns = optionColumn.filter((element) => element !== filterColumn);
     setOptionColumn(removeColumns);
+    setFilterColumn(removeColumns[0]);
     setFilterByNumericValues(newFilterByNumericValues);
-    setData(allData.filter((element) => element[filterColumn] > 1));
-
-    const justOneColumn = filterColumn;
-    console.log(justOneColumn);
 
     switch (filterOperator) {
     case 'maior que':
       return setData(data
-        .filter((element) => +element[filterColumn] > Number(filterNumeric)));
+        .filter((element) => +element[filterColumn] > newFilterByNumericValues.value));
     case 'menor que':
       return setData(data
-        .filter((element) => +element[filterColumn] < Number(filterNumeric)));
-    case 'igual a':
-      return setData(data
-        .filter((element) => +element[filterColumn] === Number(filterNumeric)));
+        .filter((element) => +element[filterColumn] < newFilterByNumericValues.value));
     default:
-      return setData(allData);
+      return setData(data
+        .filter((element) => +element[filterColumn] === newFilterByNumericValues.value));
     }
   };
 

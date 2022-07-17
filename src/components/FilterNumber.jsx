@@ -11,7 +11,6 @@ export default function FilterNumber() {
   return (
     <div>
       <form>
-
         <label htmlFor="filterColumn">
           Coluna
           <select
@@ -21,7 +20,7 @@ export default function FilterNumber() {
             data-testid="column-filter"
           >
             {optionColumn.map((element) => (
-              <option key={ uuidv4 }>
+              <option key={ uuidv4() }>
                 {element}
               </option>
             ))}
@@ -54,12 +53,12 @@ export default function FilterNumber() {
 
         <button
           data-testid="button-filter"
+          id="button-filter"
           type="button"
           onClick={ handleFilterNumber }
         >
           Pesquisar
         </button>
-
       </form>
     </div>
   );
